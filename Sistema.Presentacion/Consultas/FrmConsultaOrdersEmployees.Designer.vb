@@ -24,6 +24,7 @@ Partial Class FrmConsultaOrdersEmployees
     Private Sub InitializeComponent()
         Me.TabGeneral = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.BtnSalir = New System.Windows.Forms.Button()
         Me.LblCustomers = New System.Windows.Forms.Label()
         Me.CmbEmployee = New System.Windows.Forms.ComboBox()
         Me.BtnBuscar = New System.Windows.Forms.Button()
@@ -46,6 +47,7 @@ Partial Class FrmConsultaOrdersEmployees
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.BtnSalir)
         Me.TabPage1.Controls.Add(Me.LblCustomers)
         Me.TabPage1.Controls.Add(Me.CmbEmployee)
         Me.TabPage1.Controls.Add(Me.BtnBuscar)
@@ -58,6 +60,17 @@ Partial Class FrmConsultaOrdersEmployees
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "LISTADO"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'BtnSalir
+        '
+        Me.BtnSalir.BackColor = System.Drawing.Color.PaleGreen
+        Me.BtnSalir.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnSalir.Location = New System.Drawing.Point(783, 29)
+        Me.BtnSalir.Name = "BtnSalir"
+        Me.BtnSalir.Size = New System.Drawing.Size(88, 37)
+        Me.BtnSalir.TabIndex = 9
+        Me.BtnSalir.Text = "Salir"
+        Me.BtnSalir.UseVisualStyleBackColor = False
         '
         'LblCustomers
         '
@@ -80,9 +93,9 @@ Partial Class FrmConsultaOrdersEmployees
         '
         Me.BtnBuscar.BackColor = System.Drawing.Color.DodgerBlue
         Me.BtnBuscar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnBuscar.Location = New System.Drawing.Point(754, 29)
+        Me.BtnBuscar.Location = New System.Drawing.Point(653, 29)
         Me.BtnBuscar.Name = "BtnBuscar"
-        Me.BtnBuscar.Size = New System.Drawing.Size(126, 37)
+        Me.BtnBuscar.Size = New System.Drawing.Size(88, 37)
         Me.BtnBuscar.TabIndex = 2
         Me.BtnBuscar.Text = "Buscar"
         Me.BtnBuscar.UseVisualStyleBackColor = False
@@ -124,6 +137,8 @@ Partial Class FrmConsultaOrdersEmployees
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(932, 580)
         Me.Controls.Add(Me.TabGeneral)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "FrmConsultaOrdersEmployees"
         Me.Text = "Consulta por Employees"
         Me.TabGeneral.ResumeLayout(False)
@@ -142,4 +157,5 @@ Partial Class FrmConsultaOrdersEmployees
     Friend WithEvents LblTotalregistros As Label
     Friend WithEvents DgvListado As DataGridView
     Friend WithEvents Seleccionar As DataGridViewCheckBoxColumn
+    Friend WithEvents BtnSalir As Button
 End Class

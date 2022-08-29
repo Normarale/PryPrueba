@@ -100,6 +100,25 @@ Public Class DatosOrders
         End Try
     End Function
 
+    Public Function BuscarEmployeeNombre(ValorEmployee As String) As DataTable
+
+        Try
+            Dim Resultado As SqlDataReader
+            Dim Tabla As New DataTable
+            Dim cmd As New SqlCommand("Orders_buscar_enombre", MyBase.conn)
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.Add("@Valor", SqlDbType.VarChar).Value = ValorEmployee 'cadena que se pasa para buscar
+            MyBase.conn.Open()
+            Resultado = cmd.ExecuteReader
+            Tabla.Load(Resultado)
+            MyBase.conn.Close()
+            Return Tabla
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Function
+
+
     Public Function ListarDetalle(Id As Integer) As DataTable
 
         Try
@@ -157,7 +176,7 @@ Public Class DatosOrders
 
     End Sub
 
-    Public Sub Actualizar(Obj As Orders)
+    Public Sub Actualizar(Obj As Orders, Det As DataTable)
         Try
 
             Dim cmd As New SqlCommand("Orders_actualizar", MyBase.conn)
@@ -182,7 +201,7 @@ Public Class DatosOrders
 
             'datos del detalle
 
-            'cmd.Parameters.Add("@detalle", SqlDbType.Structured).Value = Det
+            cmd.Parameters.Add("@detalle", SqlDbType.Structured).Value = Det
 
 
             MyBase.conn.Open()

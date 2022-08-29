@@ -3,6 +3,7 @@
 
     Private Detalle As New DataTable
     Private Total As Decimal = 0
+    Private DetActualiza As New DataTable
 #Region "Formato gridView"
     Public Sub Formato()
         DgvListado.Columns(0).Visible = False
@@ -59,7 +60,8 @@
         DgvDetalle.DataSource = ""
         DtpOrderDate.Value = DateTime.Today
         DtpRequired.Value = DateTime.Today
-        DtpShipped.Format = DateTimePickerFormat.Long
+        DtpShipped.Format = DateTimePickerFormat.Short
+        DtpShipped.Value = DateTime.Today
         DtpShipped.CustomFormat = Nothing
         CmbEmployee.DisplayMember = ""
         CmbShipVia.DisplayMember = ""
@@ -138,7 +140,7 @@
         Me.Detalle.Columns.Add("Quantity", System.Type.GetType("System.Int32"))
         Me.Detalle.Columns.Add("UnitInStock", System.Type.GetType("System.Int32"))
         Me.Detalle.Columns.Add("Discount", System.Type.GetType("System.Decimal"))
-        Me.Detalle.Columns.Add("TotPrice", System.Type.GetType("System.Decimal"))
+        ' Me.Detalle.Columns.Add("TotPrice", System.Type.GetType("System.Decimal"))
 
 
         DgvDetalle.DataSource = Me.Detalle
@@ -160,15 +162,15 @@
         DgvDetalle.Columns(4).Width = 100
         DgvDetalle.Columns(5).HeaderText = "Discount"
         DgvDetalle.Columns(5).Width = 100
-        DgvDetalle.Columns(6).HeaderText = "TotPrice"
-        DgvDetalle.Columns(6).Width = 100
+        'DgvDetalle.Columns(6).HeaderText = "TotPrice"
+        'DgvDetalle.Columns(6).Width = 100
 
 
         DgvDetalle.Columns(0).ReadOnly = True
         DgvDetalle.Columns(1).ReadOnly = True
         DgvDetalle.Columns(2).ReadOnly = True
         DgvDetalle.Columns(4).ReadOnly = True
-        DgvDetalle.Columns(6).ReadOnly = True
+        'DgvDetalle.Columns(6).ReadOnly = True
     End Sub
 
 
@@ -184,24 +186,31 @@
 
         If (Agregar) Then
             Dim Row As DataRow
+
+            Detalle = DgvDetalle.DataSource
             Row = Detalle.NewRow 'creamos una nueva fila de ese detalle
+            DgvDetalle.DataSource = Detalle
             Row("ProductID") = Convert.ToString(Filas.ProductID)
             Row("ProductName") = Convert.ToString(Filas.ProductName)
             Row("UnitPrice") = Convert.ToString(Filas.UnitPrice)
             Row("Quantity") = Convert.ToString(1)
             Row("UnitInStock") = Convert.ToString(Filas.UnitsInStock)
             Row("Discount") = Convert.ToString(0)
-            Row("TotPrice") = Convert.ToString(Filas.UnitPrice)
+            ' Row("TotPrice") = Convert.ToString(Filas.UnitPrice)
             Me.Detalle.Rows.Add(Row)
             Me.CalcularTotales()
+
         End If
     End Sub
 
     Private Sub CalcularTotales()
         Dim Total As Decimal = 0
-
+        Dim descuento As Decimal = 0
+        Dim Tot As Decimal = 0
         For Each FilaTemp As DataGridViewRow In DgvDetalle.Rows
-            Total = Total + CDec(FilaTemp.Cells("TotPrice").Value)
+            descuento = (CDec(FilaTemp.Cells("UnitPrice").Value) * (FilaTemp.Cells("Quantity").Value)) * (FilaTemp.Cells("Discount").Value)
+            Tot = (CDec(FilaTemp.Cells("UnitPrice").Value) * (FilaTemp.Cells("Quantity").Value)) - descuento
+            Total = Total + Tot
 
         Next
 
@@ -211,7 +220,7 @@
 
     Private Sub BtnGrabar_Click(sender As Object, e As EventArgs) Handles BtnGrabar.Click
         Try
-            If (DgvDetalle.Rows.Count > 0) Then
+            If (CmbEmployee.DisplayMember <> "" And CmbShipVia.DisplayMember <> "" And TxtFreight.Text <> "" And TxtIdCustomer.Text <> "" And DgvDetalle.Rows.Count > 0) Then
                 Dim ObjOrders As New Entidades.Orders
                 Dim Neg As New Negocio.NegocioOrders
 
@@ -259,7 +268,7 @@
         End If
 
         fila.Cells("Quantity").Value = Cantidad
-        fila.Cells("TotPrice").Value = (Precio * Cantidad) - ((Precio * Cantidad) * Descuento)
+        'fila.Cells("TotPrice").Value = (Precio * Cantidad) - ((Precio * Cantidad) * Descuento)
 
         Me.CalcularTotales()
     End Sub
@@ -273,10 +282,20 @@
         Try
             Dim Neg As New Negocio.NegocioOrders
             Dim Valor As String
+            Dim ValorEmployee As String
             Valor = TxtBusca.Text
-            DgvListado.DataSource = Neg.Buscar(Valor)
-            Me.Formato()
-            LblTotalregistros.Text = "Total de registros: " & DgvListado.DataSource.Rows.Count
+            ValorEmployee = TxTBuscaEmployee.Text
+            If Valor <> "" Then
+                DgvListado.DataSource = Neg.Buscar(Valor)
+                Me.Formato()
+                LblTotalregistros.Text = "Total de registros: " & DgvListado.DataSource.Rows.Count
+            ElseIf ValorEmployee <> "" Then
+                DgvListado.DataSource = Neg.BuscarEmployeeNombre(ValorEmployee)
+                Me.Formato()
+                LblTotalregistros.Text = "Total de registros: " & DgvListado.DataSource.Rows.Count
+            Else
+                MsgBox("Debe ingresar un Nombre para buscar....", MsgBoxStyle.Exclamation, "INGRESAR NOMBRE")
+            End If
 
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -343,7 +362,6 @@
 
                 TxtTotal.Text = Total
                 BtnActualizar.Visible = True
-                GbDetalle.Enabled = False
                 BtnGrabar.Visible = False
                 TabGeneral.SelectedIndex = 1
                 TabGeneral.Enabled = True
@@ -490,7 +508,8 @@
 
     Private Sub BtnActualizar_Click(sender As Object, e As EventArgs) Handles BtnActualizar.Click
         Try
-            If (TxtId.Text <> "") Then
+
+            If (CmbEmployee.Text <> "" And CmbShipVia.Text <> "" And TxtFreight.Text <> "" And TxtIdCustomer.Text <> "") Then
 
 
                 Dim ObjOrders As New Entidades.Orders
@@ -511,11 +530,15 @@
                 ObjOrders.ShipPostalCode = TxtPostalCode.Text
                 ObjOrders.ShipCountry = TxtShipCountry.Text
 
+                Me.actualiza()
 
-                If Neg.Actualizar(ObjOrders) Then
+
+                If Neg.Actualizar(ObjOrders, Detalle) Then
                     MsgBox("Los Orders se Actualizaron correctamente", MsgBoxStyle.Information, "Registro Correcto")
                     Me.Listar()
                     TabGeneral.SelectedIndex = 0
+                    CargarEmployees()
+                    CargarShippers()
                 Else
                     MsgBox("No se han podrido actualizar Los Ordes", MsgBoxStyle.Critical, "Error registración")
                 End If
@@ -556,4 +579,77 @@
 
         'End If
     End Sub
+
+
+
+    Public Sub actualiza()
+
+        If DgvDetalle.Rows.Count > 0 Then
+            Dim col As DataRow
+            col = Detalle.NewRow
+            For Each Filadetalle As DataGridViewRow In DgvDetalle.Rows
+                col("ProductID") = Filadetalle.Cells("ProductID").Value.ToString
+                col("ProductName") = Filadetalle.Cells("ProductName").Value.ToString
+                col("UnitPrice") = Filadetalle.Cells("UnitPrice").Value.ToString
+                col("Quantity") = Filadetalle.Cells("Quantity").Value.ToString
+                col("UnitInStock") = Filadetalle.Cells("UnitInStock").Value.ToString
+                col("Discount") = Filadetalle.Cells("Discount").Value.ToString
+                'col("TotPrice") = Filadetalle.Cells("TotPrice").Value.ToString
+            Next
+        End If
+    End Sub
+
+    Private Sub BtnBuscarManual_Click(sender As Object, e As EventArgs) Handles BtnBuscarManual.Click
+        Try
+            Dim Neg As New Negocio.NegocioProducts
+            Dim Valor As String
+            Valor = TxtBuscarManual.Text
+            DgvArticuloManual.DataSource = Neg.BuscarProductsManual(Valor)
+            LblTotalesManual.Text = "Total de registros: " & DgvArticuloManual.DataSource.Rows.Count
+            Me.FormatoProducts()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+#Region "Formato Artículos"
+    Public Sub FormatoProducts()
+        DgvArticuloManual.Columns(0).Width = 80
+        DgvArticuloManual.Columns(1).Width = 150
+        DgvArticuloManual.Columns(2).Width = 100
+        DgvArticuloManual.Columns(3).Width = 100
+
+
+    End Sub
+
+    Private Sub BtnBuscarArticulo_Click(sender As Object, e As EventArgs) Handles BtnBuscarArticulo.Click
+        PanelProductos.Visible = True
+    End Sub
+
+    Private Sub BtnCerrar_Click(sender As Object, e As EventArgs) Handles BtnCerrar.Click
+        PanelProductos.Visible = False
+    End Sub
+
+    Private Sub DgvArticuloManual_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvArticuloManual.CellDoubleClick
+        Try
+            Dim Obj As New Entidades.Products
+            Obj.ProductID = DgvArticuloManual.Item("ID", DgvArticuloManual.CurrentRow.Index).Value
+            Obj.ProductName = DgvArticuloManual.Item("ProductName", DgvArticuloManual.CurrentRow.Index).Value
+            Obj.UnitPrice = DgvArticuloManual.Item("UnitPrice", DgvArticuloManual.CurrentRow.Index).Value
+            Obj.UnitsInStock = DgvArticuloManual.Item("UnitsInStock", DgvArticuloManual.CurrentRow.Index).Value
+
+
+            Me.AgregarDetalle(Obj)
+            'PanelArticulos.Visible = False
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+
+
+#End Region
+
+
+
 End Class

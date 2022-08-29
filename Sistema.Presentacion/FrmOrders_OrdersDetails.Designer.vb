@@ -47,6 +47,9 @@ Partial Class FrmOrders_OrdersDetails
         Me.TxtShipCity = New System.Windows.Forms.TextBox()
         Me.TabGeneral = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.LblEmployee = New System.Windows.Forms.Label()
+        Me.TxTBuscaEmployee = New System.Windows.Forms.TextBox()
+        Me.LblCompany = New System.Windows.Forms.Label()
         Me.BtnEliminar = New System.Windows.Forms.Button()
         Me.BtnAnular = New System.Windows.Forms.Button()
         Me.ChkSeleccionar = New System.Windows.Forms.CheckBox()
@@ -56,6 +59,7 @@ Partial Class FrmOrders_OrdersDetails
         Me.DgvListado = New System.Windows.Forms.DataGridView()
         Me.Seleccionar = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.DtpShipped = New System.Windows.Forms.DateTimePicker()
         Me.BtnCancelar = New System.Windows.Forms.Button()
         Me.TxtFreight = New System.Windows.Forms.TextBox()
         Me.LblFreight = New System.Windows.Forms.Label()
@@ -80,7 +84,6 @@ Partial Class FrmOrders_OrdersDetails
         Me.LblCliente = New System.Windows.Forms.Label()
         Me.LblId = New System.Windows.Forms.Label()
         Me.TxtId = New System.Windows.Forms.TextBox()
-        Me.DtpShipped = New System.Windows.Forms.DateTimePicker()
         Me.PanelProductos.SuspendLayout()
         CType(Me.DgvArticuloManual, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabGeneral.SuspendLayout()
@@ -307,6 +310,9 @@ Partial Class FrmOrders_OrdersDetails
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.LblEmployee)
+        Me.TabPage1.Controls.Add(Me.TxTBuscaEmployee)
+        Me.TabPage1.Controls.Add(Me.LblCompany)
         Me.TabPage1.Controls.Add(Me.BtnEliminar)
         Me.TabPage1.Controls.Add(Me.BtnAnular)
         Me.TabPage1.Controls.Add(Me.ChkSeleccionar)
@@ -321,6 +327,31 @@ Partial Class FrmOrders_OrdersDetails
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "LISTADO"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'LblEmployee
+        '
+        Me.LblEmployee.AutoSize = True
+        Me.LblEmployee.Location = New System.Drawing.Point(167, 88)
+        Me.LblEmployee.Name = "LblEmployee"
+        Me.LblEmployee.Size = New System.Drawing.Size(72, 13)
+        Me.LblEmployee.TabIndex = 11
+        Me.LblEmployee.Text = "Por Employee"
+        '
+        'TxTBuscaEmployee
+        '
+        Me.TxTBuscaEmployee.Location = New System.Drawing.Point(272, 81)
+        Me.TxTBuscaEmployee.Name = "TxTBuscaEmployee"
+        Me.TxTBuscaEmployee.Size = New System.Drawing.Size(249, 20)
+        Me.TxTBuscaEmployee.TabIndex = 10
+        '
+        'LblCompany
+        '
+        Me.LblCompany.AutoSize = True
+        Me.LblCompany.Location = New System.Drawing.Point(167, 46)
+        Me.LblCompany.Name = "LblCompany"
+        Me.LblCompany.Size = New System.Drawing.Size(70, 13)
+        Me.LblCompany.TabIndex = 9
+        Me.LblCompany.Text = "Por Company"
         '
         'BtnEliminar
         '
@@ -354,7 +385,7 @@ Partial Class FrmOrders_OrdersDetails
         '
         Me.BtnBuscar.BackColor = System.Drawing.Color.PowderBlue
         Me.BtnBuscar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnBuscar.Location = New System.Drawing.Point(584, 39)
+        Me.BtnBuscar.Location = New System.Drawing.Point(709, 39)
         Me.BtnBuscar.Name = "BtnBuscar"
         Me.BtnBuscar.Size = New System.Drawing.Size(126, 37)
         Me.BtnBuscar.TabIndex = 2
@@ -374,9 +405,9 @@ Partial Class FrmOrders_OrdersDetails
         '
         'TxtBusca
         '
-        Me.TxtBusca.Location = New System.Drawing.Point(69, 49)
+        Me.TxtBusca.Location = New System.Drawing.Point(272, 39)
         Me.TxtBusca.Name = "TxtBusca"
-        Me.TxtBusca.Size = New System.Drawing.Size(452, 20)
+        Me.TxtBusca.Size = New System.Drawing.Size(249, 20)
         Me.TxtBusca.TabIndex = 1
         '
         'DgvListado
@@ -427,6 +458,14 @@ Partial Class FrmOrders_OrdersDetails
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "GESTION ABM"
         Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'DtpShipped
+        '
+        Me.DtpShipped.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DtpShipped.Location = New System.Drawing.Point(329, 51)
+        Me.DtpShipped.Name = "DtpShipped"
+        Me.DtpShipped.Size = New System.Drawing.Size(132, 20)
+        Me.DtpShipped.TabIndex = 23
         '
         'BtnCancelar
         '
@@ -509,9 +548,10 @@ Partial Class FrmOrders_OrdersDetails
         '
         'DtpRequired
         '
+        Me.DtpRequired.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.DtpRequired.Location = New System.Drawing.Point(630, 13)
         Me.DtpRequired.Name = "DtpRequired"
-        Me.DtpRequired.Size = New System.Drawing.Size(197, 20)
+        Me.DtpRequired.Size = New System.Drawing.Size(142, 20)
         Me.DtpRequired.TabIndex = 13
         '
         'BtnActualizar
@@ -547,9 +587,10 @@ Partial Class FrmOrders_OrdersDetails
         '
         'DtpOrderDate
         '
+        Me.DtpOrderDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.DtpOrderDate.Location = New System.Drawing.Point(329, 16)
         Me.DtpOrderDate.Name = "DtpOrderDate"
-        Me.DtpOrderDate.Size = New System.Drawing.Size(199, 20)
+        Me.DtpOrderDate.Size = New System.Drawing.Size(132, 20)
         Me.DtpOrderDate.TabIndex = 11
         '
         'GbDetalle
@@ -661,13 +702,6 @@ Partial Class FrmOrders_OrdersDetails
         Me.TxtId.Size = New System.Drawing.Size(113, 20)
         Me.TxtId.TabIndex = 6
         '
-        'DtpShipped
-        '
-        Me.DtpShipped.Location = New System.Drawing.Point(329, 51)
-        Me.DtpShipped.Name = "DtpShipped"
-        Me.DtpShipped.Size = New System.Drawing.Size(199, 20)
-        Me.DtpShipped.TabIndex = 23
-        '
         'FrmOrders_OrdersDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -753,4 +787,7 @@ Partial Class FrmOrders_OrdersDetails
     Friend WithEvents BtnEliminaProducto As Button
     Friend WithEvents BtnEliminar As Button
     Friend WithEvents DtpShipped As DateTimePicker
+    Friend WithEvents LblEmployee As Label
+    Friend WithEvents TxTBuscaEmployee As TextBox
+    Friend WithEvents LblCompany As Label
 End Class

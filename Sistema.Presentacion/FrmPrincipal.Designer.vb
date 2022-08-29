@@ -68,25 +68,25 @@ Partial Class FrmPrincipal
         '
         Me.ENTREFECHASToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PORFECHASToolStripMenuItem, Me.PORCUSTOMERSToolStripMenuItem, Me.POREMPLOYEESToolStripMenuItem})
         Me.ENTREFECHASToolStripMenuItem.Name = "ENTREFECHASToolStripMenuItem"
-        Me.ENTREFECHASToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ENTREFECHASToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
         Me.ENTREFECHASToolStripMenuItem.Text = "ORDERS"
         '
         'PORFECHASToolStripMenuItem
         '
         Me.PORFECHASToolStripMenuItem.Name = "PORFECHASToolStripMenuItem"
-        Me.PORFECHASToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PORFECHASToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.PORFECHASToolStripMenuItem.Text = "POR FECHAS"
         '
         'PORCUSTOMERSToolStripMenuItem
         '
         Me.PORCUSTOMERSToolStripMenuItem.Name = "PORCUSTOMERSToolStripMenuItem"
-        Me.PORCUSTOMERSToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PORCUSTOMERSToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.PORCUSTOMERSToolStripMenuItem.Text = "POR CUSTOMERS"
         '
         'POREMPLOYEESToolStripMenuItem
         '
         Me.POREMPLOYEESToolStripMenuItem.Name = "POREMPLOYEESToolStripMenuItem"
-        Me.POREMPLOYEESToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.POREMPLOYEESToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.POREMPLOYEESToolStripMenuItem.Text = "POR EMPLOYEES"
         '
         'SALIRToolStripMenuItem
@@ -104,6 +104,8 @@ Partial Class FrmPrincipal
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "FrmPrincipal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

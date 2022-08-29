@@ -66,6 +66,18 @@ Public Class NegocioOrders
         End Try
     End Function
 
+    Public Function BuscarEmployeeNombre(ValorEmployee As String) As DataTable
+        Try
+            Dim Datos As New DatosOrders  'instancia
+            Dim Tabla As DataTable
+            Tabla = Datos.BuscarEmployeeNombre(ValorEmployee)
+            Return Tabla
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
     Public Function ListarDetalle(Id As Integer) As DataTable
         Try
             Dim Datos As New DatosOrders 'instancia
@@ -91,10 +103,10 @@ Public Class NegocioOrders
     End Function
 
 
-    Public Function Actualizar(Obj As Orders) As Boolean
+    Public Function Actualizar(Obj As Orders, Det As DataTable) As Boolean
         Try
             Dim Datos As New DatosOrders
-            Datos.Actualizar(Obj)
+            Datos.Actualizar(Obj, Det)
             Return True
         Catch ex As Exception
             MsgBox(ex.Message)

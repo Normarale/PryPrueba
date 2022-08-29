@@ -57,4 +57,8 @@
     Private Sub FrmConsultaOrdersCustomers_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.CargarCustomers()
     End Sub
+
+    Private Sub BtnSalir_Click(sender As Object, e As EventArgs) Handles BtnSalir.Click
+        Close()
+    End Sub
 End Class

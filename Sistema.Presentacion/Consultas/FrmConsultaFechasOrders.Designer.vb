@@ -24,6 +24,7 @@ Partial Class FrmConsultaFechasOrders
     Private Sub InitializeComponent()
         Me.TabGeneral = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.BtnSalir = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DtpHasta = New System.Windows.Forms.DateTimePicker()
         Me.LblDesde = New System.Windows.Forms.Label()
@@ -55,6 +56,7 @@ Partial Class FrmConsultaFechasOrders
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.BtnSalir)
         Me.TabPage1.Controls.Add(Me.Label1)
         Me.TabPage1.Controls.Add(Me.DtpHasta)
         Me.TabPage1.Controls.Add(Me.LblDesde)
@@ -71,10 +73,21 @@ Partial Class FrmConsultaFechasOrders
         Me.TabPage1.Text = "LISTADO"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'BtnSalir
+        '
+        Me.BtnSalir.BackColor = System.Drawing.Color.PaleGreen
+        Me.BtnSalir.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnSalir.Location = New System.Drawing.Point(792, 27)
+        Me.BtnSalir.Name = "BtnSalir"
+        Me.BtnSalir.Size = New System.Drawing.Size(81, 37)
+        Me.BtnSalir.TabIndex = 11
+        Me.BtnSalir.Text = "Salir"
+        Me.BtnSalir.UseVisualStyleBackColor = False
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(362, 51)
+        Me.Label1.Location = New System.Drawing.Point(333, 51)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(68, 13)
         Me.Label1.TabIndex = 10
@@ -82,9 +95,10 @@ Partial Class FrmConsultaFechasOrders
         '
         'DtpHasta
         '
+        Me.DtpHasta.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.DtpHasta.Location = New System.Drawing.Point(439, 45)
         Me.DtpHasta.Name = "DtpHasta"
-        Me.DtpHasta.Size = New System.Drawing.Size(217, 20)
+        Me.DtpHasta.Size = New System.Drawing.Size(145, 20)
         Me.DtpHasta.TabIndex = 9
         '
         'LblDesde
@@ -98,9 +112,10 @@ Partial Class FrmConsultaFechasOrders
         '
         'DtpDesde
         '
-        Me.DtpDesde.Location = New System.Drawing.Point(106, 46)
+        Me.DtpDesde.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DtpDesde.Location = New System.Drawing.Point(125, 46)
         Me.DtpDesde.Name = "DtpDesde"
-        Me.DtpDesde.Size = New System.Drawing.Size(217, 20)
+        Me.DtpDesde.Size = New System.Drawing.Size(145, 20)
         Me.DtpDesde.TabIndex = 7
         '
         'PanelMostrar
@@ -162,9 +177,9 @@ Partial Class FrmConsultaFechasOrders
         '
         Me.BtnBuscar.BackColor = System.Drawing.Color.DodgerBlue
         Me.BtnBuscar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnBuscar.Location = New System.Drawing.Point(737, 39)
+        Me.BtnBuscar.Location = New System.Drawing.Point(650, 28)
         Me.BtnBuscar.Name = "BtnBuscar"
-        Me.BtnBuscar.Size = New System.Drawing.Size(126, 37)
+        Me.BtnBuscar.Size = New System.Drawing.Size(81, 37)
         Me.BtnBuscar.TabIndex = 2
         Me.BtnBuscar.Text = "Buscar"
         Me.BtnBuscar.UseVisualStyleBackColor = False
@@ -206,6 +221,8 @@ Partial Class FrmConsultaFechasOrders
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(921, 653)
         Me.Controls.Add(Me.TabGeneral)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "FrmConsultaFechasOrders"
         Me.Text = "Orders por Fecha"
         Me.TabGeneral.ResumeLayout(False)
@@ -234,4 +251,5 @@ Partial Class FrmConsultaFechasOrders
     Friend WithEvents LblTotalregistros As Label
     Friend WithEvents DgvListado As DataGridView
     Friend WithEvents Seleccionar As DataGridViewCheckBoxColumn
+    Friend WithEvents BtnSalir As Button
 End Class
